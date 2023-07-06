@@ -35,7 +35,7 @@ public class ExprRestrictionArea extends SimpleExpression<Location> {
     static {
         Skript.registerExpression(ExprRestrictionArea.class, Location.class, ExpressionType.COMBINED,
                 "restriction area of %entities/entitybrains%",
-                "restriction area with radius %-number% of %entities/entitybrains% ");
+                "restriction area with radius %-number% of %entities/entitybrains%");
     }
 
     private Expression<?> sources;
@@ -107,8 +107,9 @@ public class ExprRestrictionArea extends SimpleExpression<Location> {
     }
 
     @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
-        return "null";
+    public @NotNull String toString(@Nullable Event e, boolean d) {
+        String radius = this.radius != null ? (" with radius " + this.radius.toString(e,d)) : "";
+        return "restriction area" + radius + " of " + this.sources.toString(e,d);
     }
 
 }
