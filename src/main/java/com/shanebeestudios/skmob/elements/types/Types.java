@@ -4,9 +4,11 @@ import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import com.shanebeestudios.skmob.util.parsers.MemoryParser;
 import me.gamercoder215.mobchip.EntityBrain;
 import me.gamercoder215.mobchip.ai.EntityAI;
 import me.gamercoder215.mobchip.ai.controller.EntityController;
+import me.gamercoder215.mobchip.ai.memories.Memory;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
@@ -61,8 +63,9 @@ public class Types {
 
         Classes.registerClass(new ClassInfo<>(EntityController.class, "entitycontroller")
                 .user("entity ?controllers?")
+                .name("EntityController")
                 .description("Represents the controller of a mob's brain.")
-                .since("INSERT VERSIONS")
+                .since("INSERT VERSION")
                 .parser(new Parser<>() {
 
                     @Override
@@ -80,6 +83,15 @@ public class Types {
                         return "entitycontroller";
                     }
                 }));
+
+        MemoryParser MEMORY_PARSER = new MemoryParser();
+        Classes.registerClass(new ClassInfo<>(Memory.class, "entitymemory")
+                .user("entity ?memor(y|ies)")
+                .name("EntityMemory")
+                .description("Representes the memory of a mob.")
+                .usage(MEMORY_PARSER.getNames())
+                .since("INSERT VERSION")
+                .parser(MEMORY_PARSER.getParser()));
     }
 
 }
