@@ -1,11 +1,85 @@
-package com.shanebeestudios.skmob.elements.type;
+package com.shanebeestudios.skmob.elements.types;
 
 import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.Parser;
+import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import me.gamercoder215.mobchip.EntityBrain;
+import me.gamercoder215.mobchip.ai.EntityAI;
+import me.gamercoder215.mobchip.ai.controller.EntityController;
+import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class Types {
 
     static {
-        Classes.registerClass(new ClassInfo<Object>());
+        Classes.registerClass(new ClassInfo<>(EntityBrain.class, "entitybrain")
+                .user("entity ?brains?")
+                .name("EntityBrain")
+                .description("Represents the brain of a mob.")
+                .since("INSERT VERSION")
+                .parser(new Parser<>() {
+
+                    @Override
+                    public boolean canParse(@NotNull ParseContext context) {
+                        return false;
+                    }
+
+                    @Override
+                    public @NotNull String toString(EntityBrain brain, int flags) {
+                        return "EntityBrain[mobType:\"" + brain.getEntity().getType().key() + "\"]";
+                    }
+
+                    @Override
+                    public @NotNull String toVariableNameString(EntityBrain brain) {
+                        return "entitybrain:" + brain.getEntity().getType();
+                    }
+                }));
+
+        Classes.registerClass(new ClassInfo<>(EntityAI.class, "entityai")
+                .user("entity ?ais?")
+                .name("EntityAI")
+                .description("Represents the AI of a mob's brain.")
+                .since("INSERT VERSION")
+                .parser(new Parser<>() {
+
+                    @Override
+                    public boolean canParse(@NotNull ParseContext context) {
+                        return false;
+                    }
+
+                    @Override
+                    public @NotNull String toString(EntityAI entityAI, int flags) {
+                        return "EntityAI[mobType:\"" + entityAI.getEntity().getType().key() + "\"]";
+                    }
+
+                    @Override
+                    public @NotNull String toVariableNameString(EntityAI entityAI) {
+                        return "entityai:" + entityAI.getEntity().getType();
+                    }
+                }));
+
+        Classes.registerClass(new ClassInfo<>(EntityController.class, "entitycontroller")
+                .user("entity ?controllers?")
+                .description("Represents the controller of a mob's brain.")
+                .since("INSERT VERSIONS")
+                .parser(new Parser<>() {
+
+                    @Override
+                    public boolean canParse(@NotNull ParseContext context) {
+                        return false;
+                    }
+
+                    @Override
+                    public @NotNull String toString(EntityController controller, int flags) {
+                        return "EntityController";
+                    }
+
+                    @Override
+                    public @NotNull String toVariableNameString(EntityController controller) {
+                        return "entitycontroller";
+                    }
+                }));
     }
+
 }

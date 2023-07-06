@@ -5,30 +5,25 @@ import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import com.shanebeestudios.skmob.util.BrainUtils;
 import me.gamercoder215.mobchip.EntityBrain;
-import me.gamercoder215.mobchip.bukkit.BukkitBrain;
-import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Mob;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Brain - Get")
+@Name("EntityBrain - Get")
 @Description("Get the brain of a mob.")
 @Examples("set {_brain} to brain of target entity")
 @Since("INSERT VERSION")
-public class ExprBrain extends SimplePropertyExpression<Entity, EntityBrain> {
+public class ExprEntityBrain extends SimplePropertyExpression<Entity, EntityBrain> {
 
     static {
-        register(ExprBrain.class, EntityBrain.class, "brain", "entities");
+        register(ExprEntityBrain.class, EntityBrain.class, "[entity] brain", "entities");
     }
 
     @Override
     public @Nullable EntityBrain convert(Entity entity) {
-        // TODO Not sure the diff, we may need to revisit this later
-        if (entity instanceof EnderDragon enderDragon) return BukkitBrain.getBrain(enderDragon);
-        if (entity instanceof Mob mob) return BukkitBrain.getBrain(mob);
-        return null;
+        return BrainUtils.getBrain(entity);
     }
 
     @Override
@@ -38,7 +33,7 @@ public class ExprBrain extends SimplePropertyExpression<Entity, EntityBrain> {
 
     @Override
     protected @NotNull String getPropertyName() {
-        return "brain";
+        return "entity brain";
     }
 
 }
