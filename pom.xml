@@ -99,6 +99,7 @@
                 <targetPath>.</targetPath>
                 <includes>
                     <include>plugin.yml</include>
+                    <include>config.yml</include>
                     <include>lang/english.lang</include>
                 </includes>
             </resource>
