@@ -1,3 +1,5 @@
+version: ${project.version}
+
 types:
     entitybrain: entity[ ]brain¦s
     entityai: entity[ ]ai¦s
