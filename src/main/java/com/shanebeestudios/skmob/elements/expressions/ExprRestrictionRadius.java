@@ -11,15 +11,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @Name("Mob Restriction Radius")
-@Description({"Represents the radius of the area a mob/brain is restricted to.",
-        "This can't be set, use the 'mob restriction area' expression to set."})
+@Description("Represents the radius of the area a mob/brain is restricted to.")
 @Examples("set {_rad} to restriction radius of target entity")
 @Since("INSERT VERSION")
 public class ExprRestrictionRadius extends SimplePropertyExpression<Object,Number> {
 
     static {
         register(ExprRestrictionRadius.class, Number.class,
-                "restriction radius", "entities/entitybrains");
+                "restriction radius", "livingentities/entitybrains");
     }
 
     @Override
