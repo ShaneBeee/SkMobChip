@@ -38,7 +38,7 @@ public class Types {
                     }
                 }));
 
-        Classes.registerClass(new ClassInfo<>(EntityAI.class, "entityai")
+        Classes.registerClass(new ClassInfo<>(EntityAI.class, "entityart") // Silly Skript plural thing
                 .user("entity ?ais?")
                 .name("EntityAI")
                 .description("Represents the AI of a mob's brain.")
