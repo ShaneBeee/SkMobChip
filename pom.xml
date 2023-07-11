@@ -102,6 +102,10 @@
                     <groupId>me.gamercoder215</groupId>
                     <artifactId>mobchip-1_16_R3</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>me.gamercoder215</groupId>
+                    <artifactId>mobchip-1_17_R1</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
     </dependencies>
