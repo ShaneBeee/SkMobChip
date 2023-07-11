@@ -2,6 +2,7 @@ package com.shanebeestudios.skmob;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.util.Version;
 import com.shanebeestudios.skmob.config.Config;
 import com.shanebeestudios.skmob.util.UpdateChecker;
 import com.shanebeestudios.skmob.util.Utils;
@@ -16,6 +17,9 @@ public class SkMobChip extends JavaPlugin {
 
     private static SkMobChip INSTANCE;
     private Config pluginConfig;
+
+    // Earliest MC Version that SkMobChip will support
+    private static final int[] EARLIEST_VERSION = new int[]{1, 18, 2};
 
     @Override
     public void onEnable() {
@@ -73,6 +77,12 @@ public class SkMobChip extends JavaPlugin {
                 Utils.log("&cNo clue how this could happen.");
                 Utils.log("&cSeems a plugin is delaying SkMobChip loading, which is after Skript stops accepting registrations.");
             }
+            return false;
+        }
+
+        Version version = new Version(EARLIEST_VERSION);
+        if (!Skript.isRunningMinecraft(version)) {
+            Utils.log("&cYour server version &7'&bMC %s&7'&c is not supported, only &7'&bMC %s+&7'&c is supported!", Skript.getMinecraftVersion(), version);
             return false;
         }
 
