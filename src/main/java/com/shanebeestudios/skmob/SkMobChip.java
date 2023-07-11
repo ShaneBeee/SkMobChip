@@ -41,11 +41,17 @@ public class SkMobChip extends JavaPlugin {
         // Disable plugin if can't load Skript addon
         if (!loadSkriptAddon()) Bukkit.getPluginManager().disablePlugin(this);
 
+        // Beta check + notice
+        String version = getDescription().getVersion();
+        if (version.contains("-")) {
+            Utils.log("&eThis is a BETA build, things may not work as expected, please report any bugs on GitHub");
+            Utils.log("&ehttps://github.com/ShaneBeee/SkMobChip/issues");
+        }
+
         // Check for update
         checkUpdate();
 
         // Finish up
-        String version = getDescription().getVersion();
         Utils.log("&aSuccessfully enabled v%s&7 in &b%.2f seconds", version, (float) (System.currentTimeMillis() - start) / 1000);
     }
 
