@@ -114,7 +114,7 @@ public class Types {
                     public String toString(Pathfinder pathfinder, int flags) {
                         Class<? extends Pathfinder> aClass = pathfinder.getClass();
                         GoalWrapper byClass = GoalWrapper.getByClass(aClass);
-                        if (byClass == null) return "Unknown Pathfinder[" + pathfinder.getName() + "]";
+                        if (byClass == null) return "UnknownGoal[goalClass=" + pathfinder.getName() + "]";
                         return byClass.toSkriptString(pathfinder);
                     }
 
