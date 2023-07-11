@@ -4,10 +4,12 @@ import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
+import com.shanebeestudios.skmob.api.goal.GoalWrapper;
 import com.shanebeestudios.skmob.util.parsers.MemoryParser;
 import me.gamercoder215.mobchip.EntityBrain;
 import me.gamercoder215.mobchip.ai.EntityAI;
 import me.gamercoder215.mobchip.ai.controller.EntityController;
+import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.memories.Memory;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +43,8 @@ public class Types {
         Classes.registerClass(new ClassInfo<>(EntityAI.class, "entityart") // Silly Skript plural thing
                 .user("entity ?ais?")
                 .name("EntityAI")
-                .description("Represents the AI of a mob's brain.")
+                .description("Represents the AI of a mob's brain.",
+                        "Mobs have 2 sets of ai, Goal AI and Target AI.")
                 .since("INSERT VERSION")
                 .parser(new Parser<>() {
 
@@ -92,6 +95,35 @@ public class Types {
                 .usage(MEMORY_PARSER.getNames())
                 .since("INSERT VERSION")
                 .parser(MEMORY_PARSER.getParser()));
+
+        Classes.registerClass(new ClassInfo<>(Pathfinder.class, "goal")
+                .user("goals?")
+                .name("Goal")
+                .description("Represents a pathfinding goal of a mob.")
+                .since("INSERT VERSION")
+                .parser(new Parser<>() {
+
+                    @SuppressWarnings("NullableProblems")
+                    @Override
+                    public boolean canParse(ParseContext context) {
+                        return false;
+                    }
+
+                    @SuppressWarnings({"NullableProblems", "rawtypes", "unchecked"})
+                    @Override
+                    public String toString(Pathfinder pathfinder, int flags) {
+                        Class<? extends Pathfinder> aClass = pathfinder.getClass();
+                        GoalWrapper byClass = GoalWrapper.getByClass(aClass);
+                        if (byClass == null) return "Unknown Pathfinder[" + pathfinder.getName() + "]";
+                        return byClass.toSkriptString(pathfinder);
+                    }
+
+                    @SuppressWarnings("NullableProblems")
+                    @Override
+                    public String toVariableNameString(Pathfinder pathfinder) {
+                        return "";
+                    }
+                }));
     }
 
 }
