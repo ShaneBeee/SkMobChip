@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.elements.expressions.goals.target;
+package com.shanebeestudios.skmob.elements.expressions.goals;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;

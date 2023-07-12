@@ -85,6 +85,15 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderMeleeAttack> MELEE_ATTACK_GOAL = new GoalWrapper<>(PathfinderMeleeAttack.class, "melee_attack_goal") {
+        @Override
+        public String toSkriptString(PathfinderMeleeAttack pathfinder) {
+            String entity = getEntity(pathfinder);
+            double speedModifier = pathfinder.getSpeedModifier();
+            return String.format("MeleeAttackGoal[mobType=%s,speedMod=%s]", entity, speedModifier);
+        }
+    };
+
     public static GoalWrapper<PathfinderPanic> PANIC_GOAL = new GoalWrapper<>(PathfinderPanic.class, "panic_goal") {
         @Override
         public String toSkriptString(PathfinderPanic pathfinder) {
@@ -166,15 +175,6 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     }
 
     // TARGETS
-    public static GoalWrapper<PathfinderMeleeAttack> MELEE_ATTACK_GOAL = new GoalWrapper<>(PathfinderMeleeAttack.class, "melee_attack_goal") {
-        @Override
-        public String toSkriptString(PathfinderMeleeAttack pathfinder) {
-            String entity = getEntity(pathfinder);
-            double speedModifier = pathfinder.getSpeedModifier();
-            return String.format("MeleeAttackGoal[mobType=%s,speedMod=%s]", entity, speedModifier);
-        }
-    };
-
     public static GoalWrapper<PathfinderNearestAttackableTarget> NEAREST_ATTACKABLE_TARGET_GOAL = new GoalWrapper<>(PathfinderNearestAttackableTarget.class, "nearest_attackable_target_goal") {
         @Override
         public String toSkriptString(PathfinderNearestAttackableTarget pathfinder) {
