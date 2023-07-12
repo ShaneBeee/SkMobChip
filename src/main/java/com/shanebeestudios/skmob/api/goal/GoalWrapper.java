@@ -75,6 +75,15 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderLeapAtTarget> LEAP_AT_TARGET_GOAL = new GoalWrapper<>(PathfinderLeapAtTarget.class, "leap_at_target_goal") {
+        @Override
+        public String toSkriptString(PathfinderLeapAtTarget pathfinder) {
+            String entity = getEntity(pathfinder);
+            float height = pathfinder.getHeight();
+            return String.format("LeapAtTargetGoal[mobType=%s,height=%s", entity, height);
+        }
+    };
+
     public static GoalWrapper<PathfinderPanic> PANIC_GOAL = new GoalWrapper<>(PathfinderPanic.class, "panic_goal") {
         @Override
         public String toSkriptString(PathfinderPanic pathfinder) {
