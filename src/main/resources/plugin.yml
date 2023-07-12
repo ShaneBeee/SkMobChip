@@ -1,5 +1,6 @@
 name: '${project.artifactId}'
 main: com.shanebeestudios.skmob.SkMobChip
 version: '${project.version}'
+api-version: 1.18
 depend:
   - Skript
