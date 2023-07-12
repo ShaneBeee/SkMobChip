@@ -6,6 +6,7 @@ import ch.njol.skript.util.Timespan;
 import ch.njol.util.StringUtils;
 import me.gamercoder215.mobchip.ai.goal.*;
 import me.gamercoder215.mobchip.ai.goal.target.PathfinderNearestAttackableTarget;
+import me.gamercoder215.mobchip.ai.goal.target.PathfinderWildTarget;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -183,6 +184,16 @@ public abstract class GoalWrapper<P extends Pathfinder> {
             String interval = new Timespan(pathfinder.getInterval()).toString();
             return String.format("NearestAttackableTargetGoal[mobType=%s,target=%s,interval='%s']",
                     entity, target, interval);
+        }
+    };
+
+    public static GoalWrapper<PathfinderWildTarget> NON_TAME_RANDOM_TARGET_GOAL = new GoalWrapper<>(PathfinderWildTarget.class, "non_tame_random_target_goal") {
+        @Override
+        public String toSkriptString(PathfinderWildTarget pathfinder) {
+            String entity = getEntity(pathfinder);
+            //noinspection unchecked
+            String target = EntityData.toString(pathfinder.getFilter());
+            return String.format("NonTameRandomTargetGoal[mobType=%s,target=%s]", entity, target);
         }
     };
 
