@@ -52,6 +52,13 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderEatTile> EAT_BLOCK_GOAL = new GoalWrapper<>(PathfinderEatTile.class, "eat_block_goal") {
+        @Override
+        public String toSkriptString(PathfinderEatTile pathfinder) {
+            return "EatBlockGoal[mobType=" + getEntity(pathfinder) + "]";
+        }
+    };
+
     public static GoalWrapper<PathfinderFleeSun> FLEE_SUN_GOAL = new GoalWrapper<>(PathfinderFleeSun.class, "flee_sun_goal") {
         @Override
         public String toSkriptString(PathfinderFleeSun pathfinder) {
@@ -143,7 +150,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
                     entity, speedModifier, probability);
         }
     };
-    
+
     private static String getEntity(Pathfinder pathfinder) {
         return EntityData.toString(pathfinder.getEntity());
     }
