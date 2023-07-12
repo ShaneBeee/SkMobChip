@@ -27,7 +27,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderAvoidEntity> AVOID_ENTITY_GOAL = new GoalWrapper<>(PathfinderAvoidEntity.class, "avoid_entity_goal") {
         @Override
         public String toSkriptString(PathfinderAvoidEntity pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             //noinspection unchecked
             String filter = EntityData.toString(pathfinder.getFilter());
             return String.format("AvoidEntityGoal[mobType=%s,avoid=%s,walkMod=%s,sprintMod=%s,maxDistance=%s]",
@@ -39,7 +39,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderBreakDoor> BREAK_DOOR_GOAL = new GoalWrapper<>(PathfinderBreakDoor.class, "break_door_goal") {
         @Override
         public String toSkriptString(PathfinderBreakDoor pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             String breaktime = new Timespan(pathfinder.getBreakTime()).toString();
             Predicate<Difficulty> condition = pathfinder.getCondition();
             List<String> difficulties = new ArrayList<>();
@@ -55,7 +55,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderFleeSun> FLEE_SUN_GOAL = new GoalWrapper<>(PathfinderFleeSun.class, "flee_sun_goal") {
         @Override
         public String toSkriptString(PathfinderFleeSun pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             return "FleeSunGoal[mobType=" + entity + "]";
         }
     };
@@ -63,7 +63,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderFloat> FLOAT_GOAL = new GoalWrapper<>(PathfinderFloat.class, "float_goal") {
         @Override
         public String toSkriptString(PathfinderFloat pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             return "FloatGoal[mobType=" + entity + "]";
         }
     };
@@ -71,7 +71,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderPanic> PANIC_GOAL = new GoalWrapper<>(PathfinderPanic.class, "panic_goal") {
         @Override
         public String toSkriptString(PathfinderPanic pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             double speed = pathfinder.getSpeedModifier();
             return String.format("PanicGoal[mobType=%s,speedMod=%s]", entity, speed);
         }
@@ -80,7 +80,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderRandomLook> RANDOM_LOOK_AROUND_GOAL = new GoalWrapper<>(PathfinderRandomLook.class, "random_look_around_goal") {
         @Override
         public String toSkriptString(PathfinderRandomLook pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             return "RandomLookAroundGoal[mobType=" + entity + "]";
         }
     };
@@ -88,7 +88,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderRandomStroll> RANDOM_STROLL_GOAL = new GoalWrapper<>(PathfinderRandomStroll.class, "random_stroll_goal") {
         @Override
         public String toSkriptString(PathfinderRandomStroll pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             double speed = pathfinder.getSpeedModifier();
             String interval = new Timespan(pathfinder.getInterval()).toString();
             return String.format("RandomStrollGoal[mobType=%s,speedMod=%s,interval='%s']",
@@ -99,7 +99,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderRemoveBlock> REMOVE_BLOCK_GOAL = new GoalWrapper<>(PathfinderRemoveBlock.class, "remove_block_goal") {
         @Override
         public String toSkriptString(PathfinderRemoveBlock pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             Material block = pathfinder.getBlock();
             double speed = pathfinder.getSpeedModifier();
             int vert = pathfinder.getVerticalSearchRange();
@@ -111,7 +111,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderRestrictSun> RESTRICT_SUN_GOAL = new GoalWrapper<>(PathfinderRestrictSun.class, "restrict_sun_goal") {
         @Override
         public String toSkriptString(PathfinderRestrictSun pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             return "RestrictSunGoal[mobType=" + entity + "]";
         }
     };
@@ -119,7 +119,7 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderFindWater> TRY_FIND_WATER_GOAL = new GoalWrapper<>(PathfinderFindWater.class, "try_find_water_goal") {
         @Override
         public String toSkriptString(PathfinderFindWater pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             return "TryFindWaterGoal[mobType=" + entity + "]";
         }
     };
@@ -127,19 +127,23 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     public static GoalWrapper<PathfinderRandomStrollLand> WATER_AVOIDING_RANDOM_STROLL_GOAL = new GoalWrapper<>(PathfinderRandomStrollLand.class, "water_avoiding_random_stroll_goal") {
         @Override
         public String toSkriptString(PathfinderRandomStrollLand pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             double speedModifier = pathfinder.getSpeedModifier();
             float probability = pathfinder.getProbability();
             return String.format("WaterAvoidingRandomStrollGoal[mobType=%s,speedMod=%s,probability=%s]",
                     entity, speedModifier, probability);
         }
     };
+    
+    private static String getEntity(Pathfinder pathfinder) {
+        return EntityData.toString(pathfinder.getEntity());
+    }
 
     // TARGETS
     public static GoalWrapper<PathfinderNearestAttackableTarget> NEAREST_ATTACKABLE_TARGET_GOAL = new GoalWrapper<>(PathfinderNearestAttackableTarget.class, "nearest_attackable_target_goal") {
         @Override
         public String toSkriptString(PathfinderNearestAttackableTarget pathfinder) {
-            String entity = EntityData.toString(pathfinder.getEntity());
+            String entity = getEntity(pathfinder);
             //noinspection unchecked
             String target = EntityData.toString(pathfinder.getFilter());
             String interval = new Timespan(pathfinder.getInterval()).toString();
