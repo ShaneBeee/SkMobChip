@@ -43,7 +43,7 @@ public class ExprBreedGoal extends PathfinderExpression {
             Number speedModNum = this.speedMod.getSingle(event);
             if (speedModNum != null) speedMod = speedModNum.doubleValue();
         }
-        return new PathfinderBreed(animal);
+        return new PathfinderBreed(animal, speedMod);
     }
 
     @Override
