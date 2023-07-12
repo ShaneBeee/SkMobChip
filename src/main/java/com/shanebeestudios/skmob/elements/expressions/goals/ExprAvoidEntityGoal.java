@@ -39,8 +39,8 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
 
     private Expression<Entity> mob;
     private Expression<EntityData<?>> avoid;
-    private Expression<Number> speedMod;
-    private Expression<Number> sprintMod;
+    private Expression<Number> walkSpeedMod;
+    private Expression<Number> sprintSpeedMod;
     private Expression<Number> maxDistance;
 
     @SuppressWarnings({"unchecked"})
@@ -48,8 +48,8 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
     public boolean init(Expression<?>[] exprs, ParseResult parseResult) {
         this.mob = (Expression<Entity>) exprs[0];
         this.avoid = (Expression<EntityData<?>>) exprs[1];
-        this.speedMod = (Expression<Number>) exprs[2];
-        this.sprintMod = (Expression<Number>) exprs[3];
+        this.walkSpeedMod = (Expression<Number>) exprs[2];
+        this.sprintSpeedMod = (Expression<Number>) exprs[3];
         this.maxDistance = (Expression<Number>) exprs[4];
         return true;
     }
@@ -61,16 +61,16 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
 
         if (!(entity instanceof Creature creature) || filter == null) return null;
 
-        double speedMod = 1.5; // Default in MobChip
-        if (this.speedMod != null) {
-            Number speedModNum = this.speedMod.getSingle(event);
-            if (speedModNum != null) speedMod = speedModNum.doubleValue();
+        double walkSpeedMod = 1.5; // Default in MobChip
+        if (this.walkSpeedMod != null) {
+            Number speedModNum = this.walkSpeedMod.getSingle(event);
+            if (speedModNum != null) walkSpeedMod = speedModNum.doubleValue();
         }
 
-        double sprintMod = speedMod; // Defualt in MobChip (if not available, matches speedMod)
-        if (this.sprintMod != null) {
-            Number sprintModNum = this.sprintMod.getSingle(event);
-            if (sprintModNum != null) sprintMod = sprintModNum.doubleValue();
+        double springSpeedMod = walkSpeedMod; // Defualt in MobChip (if not available, matches speedMod)
+        if (this.sprintSpeedMod != null) {
+            Number sprintModNum = this.sprintSpeedMod.getSingle(event);
+            if (sprintModNum != null) springSpeedMod = sprintModNum.doubleValue();
         }
 
         float maxDistance = 5.0f; // Default in MobChip
@@ -80,18 +80,18 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
         }
 
         if (!LivingEntity.class.isAssignableFrom(filter.getType())) return null;
+        //noinspection unchecked
         Class<? extends LivingEntity> type = (Class<? extends LivingEntity>) filter.getType();
 
-        // The speedmods are backwards in the API
-        return new PathfinderAvoidEntity<>(creature, type, maxDistance, speedMod, sprintMod);
+        return new PathfinderAvoidEntity<>(creature, type, maxDistance, walkSpeedMod, springSpeedMod);
     }
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
         String entity = this.mob.toString(e, d);
         String avoid = this.avoid.toString(e, d);
-        String walk = this.speedMod != null ? (" with walk speed " + this.speedMod.toString(e, d)) : "";
-        String sprint = this.sprintMod != null ? (" with sprint speed " + this.sprintMod.toString(e, d)) : "";
+        String walk = this.walkSpeedMod != null ? (" with walk speed " + this.walkSpeedMod.toString(e, d)) : "";
+        String sprint = this.sprintSpeedMod != null ? (" with sprint speed " + this.sprintSpeedMod.toString(e, d)) : "";
         String dist = this.maxDistance != null ? (" with max distance " + this.maxDistance.toString(e, d)) : "";
         return String.format("avoid entity goal for %s to avoid %s %s%s%s",
                 entity, avoid, walk, sprint, dist);
