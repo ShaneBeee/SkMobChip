@@ -53,6 +53,15 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderBreed> BREED_GOAL = new GoalWrapper<>(PathfinderBreed.class, "breed_goal") {
+        @Override
+        public String toSkriptString(PathfinderBreed pathfinder) {
+            String entity = getEntity(pathfinder);
+            double speedModifier = pathfinder.getSpeedModifier();
+            return String.format("BreedGoal[mobType=%s,speedMod=%s]", entity, speedModifier);
+        }
+    };
+
     public static GoalWrapper<PathfinderEatTile> EAT_BLOCK_GOAL = new GoalWrapper<>(PathfinderEatTile.class, "eat_block_goal") {
         @Override
         public String toSkriptString(PathfinderEatTile pathfinder) {
