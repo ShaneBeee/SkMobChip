@@ -124,6 +124,17 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderRandomStrollLand> WATER_AVOIDING_RANDOM_STROLL_GOAL = new GoalWrapper<>(PathfinderRandomStrollLand.class, "water_avoiding_random_stroll_goal") {
+        @Override
+        public String toSkriptString(PathfinderRandomStrollLand pathfinder) {
+            String entity = EntityData.toString(pathfinder.getEntity());
+            double speedModifier = pathfinder.getSpeedModifier();
+            float probability = pathfinder.getProbability();
+            return String.format("WaterAvoidingRandomStrollGoal[mobType=%s,speedMod=%s,probability=%s]",
+                    entity, speedModifier, probability);
+        }
+    };
+
     // TARGETS
     public static GoalWrapper<PathfinderNearestAttackableTarget> NEAREST_ATTACKABLE_TARGET_GOAL = new GoalWrapper<>(PathfinderNearestAttackableTarget.class, "nearest_attackable_target_goal") {
         @Override
