@@ -85,6 +85,19 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderLookAtEntity> LOOK_AT_PLAYER_GOAL = new GoalWrapper<>(PathfinderLookAtEntity.class, "look_at_player_goal") {
+        @Override
+        public String toSkriptString(PathfinderLookAtEntity pathfinder) {
+            String entity = getEntity(pathfinder);
+            //noinspection unchecked
+            String target = EntityData.toString(pathfinder.getFilter());
+            float range = pathfinder.getRange();
+            float probability = pathfinder.getProbability();
+            return String.format("LookAtPlayerGoal[mobType=%s,target=%s,range=%s,probability=%s]",
+                    entity, target, range, probability);
+        }
+    };
+
     public static GoalWrapper<PathfinderMeleeAttack> MELEE_ATTACK_GOAL = new GoalWrapper<>(PathfinderMeleeAttack.class, "melee_attack_goal") {
         @Override
         public String toSkriptString(PathfinderMeleeAttack pathfinder) {
