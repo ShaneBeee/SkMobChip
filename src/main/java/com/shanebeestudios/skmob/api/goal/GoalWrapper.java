@@ -85,6 +85,15 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
+    public static GoalWrapper<PathfinderFollowParent> FOLLOW_PARENT_GOAL = new GoalWrapper<>(PathfinderFollowParent.class, "follow_parent_goal") {
+        @Override
+        public String toSkriptString(PathfinderFollowParent pathfinder) {
+            String entity = getEntity(pathfinder);
+            double speedModifier = pathfinder.getSpeedModifier();
+            return String.format("FollowParentGoal[mobType=%s,speedMod=%s]", entity, speedModifier);
+        }
+    };
+
     public static GoalWrapper<PathfinderLeapAtTarget> LEAP_AT_TARGET_GOAL = new GoalWrapper<>(PathfinderLeapAtTarget.class, "leap_at_target_goal") {
         @Override
         public String toSkriptString(PathfinderLeapAtTarget pathfinder) {
