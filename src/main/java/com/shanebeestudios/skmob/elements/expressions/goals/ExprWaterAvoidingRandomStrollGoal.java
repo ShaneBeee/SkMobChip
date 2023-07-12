@@ -27,22 +27,20 @@ public class ExprWaterAvoidingRandomStrollGoal extends PathfinderExpression {
                         " [[and ]with probability %-number%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<Number> speedMod;
     private Expression<Number> probability;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.speedMod = (Expression<Number>) exprs[1];
         this.probability = (Expression<Number>) exprs[2];
         return true;
     }
 
     @Override
-    protected Pathfinder convert(Event event) {
-        if (!(this.entity.getSingle(event) instanceof Creature creature)) return null;
+    protected Pathfinder get(Event event, Entity entity) {
+        if (!(entity instanceof Creature creature)) return null;
 
         double speedMod = 1.0; // MobChip default
         if (this.speedMod != null) {
@@ -61,7 +59,7 @@ public class ExprWaterAvoidingRandomStrollGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.entity.toString(e,d);
+        String entity = getEntity(e,d);
         String speedMod = this.speedMod != null ? (" with speed mod " + this.speedMod.toString(e,d)) : "";
         String prob = this.probability != null ? (" with probability " + this.probability.toString(e,d)) : "";
         return String.format("water avoiding random stroll goal for %s %s%s", entity, speedMod, prob);

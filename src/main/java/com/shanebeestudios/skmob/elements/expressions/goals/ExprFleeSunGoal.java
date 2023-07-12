@@ -29,20 +29,17 @@ public class ExprFleeSunGoal extends PathfinderExpression {
         register(ExprFleeSunGoal.class, "flee sun goal for %livingentity% [with speed mod %-number%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<Number> speedMod;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.speedMod = (Expression<Number>) exprs[1];
         return true;
     }
 
     @Override
-    protected Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
+    protected Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Creature creature)) return null;
 
         double speedMod = 1.5; // ModChip default
@@ -56,7 +53,7 @@ public class ExprFleeSunGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        return "flee sun goal for " + this.entity.toString(e,d);
+        return "flee sun goal for " + getEntity(e, d);
     }
 
 }

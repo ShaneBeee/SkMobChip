@@ -4,8 +4,6 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser;
 import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.PathfinderFloat;
@@ -25,26 +23,15 @@ public class ExprFloatGoal extends PathfinderExpression {
         register(ExprFloatGoal.class, "float goal for %livingentity%");
     }
 
-    private Expression<Entity> entity;
-
-    @SuppressWarnings("unchecked")
     @Override
-    public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
-        return true;
-    }
-
-    @Override
-    protected Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
+    protected Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Mob mob)) return null;
-
         return new PathfinderFloat(mob);
     }
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        return "float goal for " + this.entity.toString(e,d);
+        return "float goal for " + getEntity(e, d);
     }
 
 }

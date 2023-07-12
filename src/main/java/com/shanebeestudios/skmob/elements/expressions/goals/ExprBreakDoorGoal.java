@@ -33,23 +33,19 @@ public class ExprBreakDoorGoal extends PathfinderExpression {
                 "break door goal for %livingentity% [with break time %-timespan%] [with difficult(y|ies) %-difficulties%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<Timespan> breakTime;
     private Expression<Difficulty> difficulties;
 
     @SuppressWarnings({"unchecked"})
     @Override
     public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.breakTime = (Expression<Timespan>) exprs[1];
         this.difficulties = (Expression<Difficulty>) exprs[2];
         return true;
     }
 
     @Override
-    protected @Nullable Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
-
+    protected @Nullable Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Mob mob)) return null;
 
         int breakTime = PathfinderBreakDoor.DEFAULT_DOOR_BREAK_TIME;
@@ -66,7 +62,7 @@ public class ExprBreakDoorGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.entity.toString(e, d);
+        String entity = getEntity(e,d);
         String breakTime = this.breakTime != null ? (" with break time " + this.breakTime.toString(e, d)) : "";
         String diff = this.difficulties != null ? (" with difficulties " + this.difficulties.toString(e, d)) : "";
         return String.format("break door goal for %s %s%s", entity, breakTime, diff);

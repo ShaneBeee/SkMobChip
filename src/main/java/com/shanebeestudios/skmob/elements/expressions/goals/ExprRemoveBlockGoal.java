@@ -32,7 +32,6 @@ public class ExprRemoveBlockGoal extends PathfinderExpression {
                         " [with speed mod %-number%] [[and ]with vertical search range %-number%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<?> material;
     private Expression<Number> speedMod;
     private Expression<Number> verticalRange;
@@ -40,7 +39,6 @@ public class ExprRemoveBlockGoal extends PathfinderExpression {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.material = exprs[1];
         this.speedMod = (Expression<Number>) exprs[2];
         this.verticalRange = (Expression<Number>) exprs[3];
@@ -48,8 +46,8 @@ public class ExprRemoveBlockGoal extends PathfinderExpression {
     }
 
     @Override
-    protected Pathfinder convert(Event event) {
-        if (!(this.entity.getSingle(event) instanceof Creature creature)) return null;
+    protected Pathfinder get(Event event, Entity entity) {
+        if (!(entity instanceof Creature creature)) return null;
 
         Material material = null;
         Object object = this.material.getSingle(event);
@@ -75,10 +73,10 @@ public class ExprRemoveBlockGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.entity.toString(e,d);
-        String remove = this.material.toString(e,d);
-        String speed = this.speedMod != null ? (" with speed mod " + this.speedMod.toString(e,d)) : "";
-        String vert = this.verticalRange != null ? (" with vertical search range " + this.verticalRange.toString(e,d)) : "";
+        String entity = getEntity(e, d);
+        String remove = this.material.toString(e, d);
+        String speed = this.speedMod != null ? (" with speed mod " + this.speedMod.toString(e, d)) : "";
+        String vert = this.verticalRange != null ? (" with vertical search range " + this.verticalRange.toString(e, d)) : "";
         return String.format("remove block goal for %s to remove %s %s%s",
                 entity, remove, speed, vert);
     }

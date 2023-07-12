@@ -37,7 +37,6 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
                         "[[and ]with max distance %-number%]");
     }
 
-    private Expression<Entity> mob;
     private Expression<EntityData<?>> avoid;
     private Expression<Number> walkSpeedMod;
     private Expression<Number> sprintSpeedMod;
@@ -46,7 +45,6 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
     @SuppressWarnings({"unchecked"})
     @Override
     public boolean init(Expression<?>[] exprs, ParseResult parseResult) {
-        this.mob = (Expression<Entity>) exprs[0];
         this.avoid = (Expression<EntityData<?>>) exprs[1];
         this.walkSpeedMod = (Expression<Number>) exprs[2];
         this.sprintSpeedMod = (Expression<Number>) exprs[3];
@@ -55,8 +53,7 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
     }
 
     @Override
-    protected @Nullable Pathfinder convert(Event event) {
-        Entity entity = this.mob.getSingle(event);
+    protected @Nullable Pathfinder get(Event event, Entity entity) {
         EntityData<?> filter = this.avoid.getSingle(event);
 
         if (!(entity instanceof Creature creature) || filter == null) return null;
@@ -88,7 +85,7 @@ public class ExprAvoidEntityGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.mob.toString(e, d);
+        String entity = getEntity(e,d);
         String avoid = this.avoid.toString(e, d);
         String walk = this.walkSpeedMod != null ? (" with walk speed " + this.walkSpeedMod.toString(e, d)) : "";
         String sprint = this.sprintSpeedMod != null ? (" with sprint speed " + this.sprintSpeedMod.toString(e, d)) : "";

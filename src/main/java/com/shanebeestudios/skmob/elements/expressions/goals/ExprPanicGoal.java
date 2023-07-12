@@ -21,20 +21,17 @@ public class ExprPanicGoal extends PathfinderExpression {
         register(ExprPanicGoal.class, "panic goal for %livingentity% [with speed mod %-number%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<Number> speedMod;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.speedMod = (Expression<Number>) exprs[1];
         return true;
     }
 
     @Override
-    protected Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
+    protected Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Creature creature)) return null;
 
         double speedMod = 1.5; // MobChip default
@@ -49,7 +46,7 @@ public class ExprPanicGoal extends PathfinderExpression {
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
         String speed = this.speedMod != null ? (" with speed mod " + this.speedMod.toString(e, d)) : "";
-        return "panic goal for " + this.entity.toString(e, d) + speed;
+        return "panic goal for " + getEntity(e, d) + speed;
     }
 
 }

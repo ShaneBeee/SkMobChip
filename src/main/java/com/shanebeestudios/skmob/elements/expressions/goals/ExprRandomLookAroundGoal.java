@@ -4,8 +4,6 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
 import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.PathfinderRandomLook;
@@ -26,26 +24,15 @@ public class ExprRandomLookAroundGoal extends PathfinderExpression {
         register(ExprRandomLookAroundGoal.class, "random look around goal for %livingentity%");
     }
 
-    private Expression<Entity> entity;
-
-    @SuppressWarnings("unchecked")
     @Override
-    public boolean init(Expression<?>[] exprs, ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
-        return true;
-    }
-
-    @Override
-    protected @Nullable Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
+    protected @Nullable Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Mob mob)) return null;
-
         return new PathfinderRandomLook(mob);
     }
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        return "random look around goal for " + this.entity.toString(e, d);
+        return "random look around goal for " + getEntity(e, d);
     }
 
 }

@@ -4,8 +4,6 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser;
 import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.PathfinderFindWater;
@@ -25,27 +23,15 @@ public class ExprTryFindWaterGoal extends PathfinderExpression {
         register(ExprTryFindWaterGoal.class, "try find water goal for %livingentity%");
     }
 
-    private Expression<Entity> entity;
-
-    @SuppressWarnings("unchecked")
     @Override
-    public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
-        return true;
-    }
-
-    @Override
-    protected Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
-
+    protected Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Creature creature)) return null;
-
         return new PathfinderFindWater(creature);
     }
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        return "try find water goal for " + this.entity.toString(e,d);
+        return "try find water goal for " + getEntity(e, d);
     }
 
 }

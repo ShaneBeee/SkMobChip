@@ -29,14 +29,12 @@ public class ExprNearestAttackableTargetGoal extends PathfinderExpression {
                 "%livingentity% to (target|attack) %entitydata% [with interval %-timespan%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<EntityData<?>> target;
     private Expression<Timespan> interval;
 
     @SuppressWarnings({"unchecked", "NullableProblems"})
     @Override
     public boolean init(Expression<?>[] exprs, SkriptParser.ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.target = (Expression<EntityData<?>>) exprs[1];
         this.interval = (Expression<Timespan>) exprs[2];
         return true;
@@ -44,8 +42,7 @@ public class ExprNearestAttackableTargetGoal extends PathfinderExpression {
 
     @SuppressWarnings({"NullableProblems", "unchecked"})
     @Override
-    protected @Nullable Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
+    protected @Nullable Pathfinder get(Event event, Entity entity) {
         EntityData<?> targetData = this.target.getSingle(event);
 
         if (!(entity instanceof Mob mob) || targetData == null) return null;
@@ -64,7 +61,7 @@ public class ExprNearestAttackableTargetGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.entity.toString(e, d);
+        String entity = getEntity(e,d);
         String target = this.target.toString(e, d);
         return String.format("nearest attackable target goal for %s to target %s", entity, target);
     }

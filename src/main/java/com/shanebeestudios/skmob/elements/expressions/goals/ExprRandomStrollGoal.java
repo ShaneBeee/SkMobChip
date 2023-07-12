@@ -29,22 +29,19 @@ public class ExprRandomStrollGoal extends PathfinderExpression {
                 "random stroll goal for %livingentity% [with speed mod %-number%] [with interval %-timespan%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<Number> speedMod;
     private Expression<Timespan> interval;
 
     @SuppressWarnings({"unchecked"})
     @Override
     public boolean init(Expression<?>[] exprs, ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.speedMod = (Expression<Number>) exprs[1];
         this.interval = (Expression<Timespan>) exprs[2];
         return true;
     }
 
     @Override
-    protected Pathfinder convert(Event event) {
-        Entity entity = this.entity.getSingle(event);
+    protected Pathfinder get(Event event, Entity entity) {
         if (!(entity instanceof Creature creature)) return null;
 
         double speedMod = 1.0; // MobChip default
@@ -65,7 +62,7 @@ public class ExprRandomStrollGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.entity.toString(e, d);
+        String entity = getEntity(e, d);
         String speed = this.speedMod != null ? (" with speed mod " + this.speedMod.toString(e, d)) : "";
         String interval = this.interval != null ? (" with interval " + this.interval.toString(e, d)) : "";
         return String.format("random stroll goal for %s %s%s", entity, speed, interval);

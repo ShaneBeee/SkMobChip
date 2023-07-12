@@ -26,20 +26,18 @@ public class ExprLeapAtTargetGoal extends PathfinderExpression {
                 "leap at target goal for %livingentity% [with height %-number%]");
     }
 
-    private Expression<Entity> entity;
     private Expression<Number> height;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] exprs, ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
         this.height = (Expression<Number>) exprs[1];
         return true;
     }
 
     @Override
-    protected Pathfinder convert(Event event) {
-        if (!(this.entity.getSingle(event) instanceof Mob mob)) return null;
+    protected Pathfinder get(Event event, Entity entity) {
+        if (!(entity instanceof Mob mob)) return null;
 
         float height = 0.5f; // Minecraft default?!?!
         if (this.height != null) {
@@ -52,8 +50,8 @@ public class ExprLeapAtTargetGoal extends PathfinderExpression {
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean d) {
-        String entity = this.entity.toString(e,d);
-        String height = this.height != null ? (" with height " + this.height.toString(e,d)) : "";
+        String entity = getEntity(e, d);
+        String height = this.height != null ? (" with height " + this.height.toString(e, d)) : "";
         return "leap at target goal for " + entity + height;
     }
 
