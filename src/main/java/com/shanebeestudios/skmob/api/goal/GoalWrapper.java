@@ -201,10 +201,6 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         }
     };
 
-    private static String getEntity(Pathfinder pathfinder) {
-        return EntityData.toString(pathfinder.getEntity());
-    }
-
     // TARGETS
     public static GoalWrapper<PathfinderNearestAttackableTarget> NEAREST_ATTACKABLE_TARGET_GOAL = new GoalWrapper<>(PathfinderNearestAttackableTarget.class, "nearest_attackable_target_goal") {
         @Override
@@ -236,6 +232,10 @@ public abstract class GoalWrapper<P extends Pathfinder> {
     @Nullable
     public static GoalWrapper getByKey(NamespacedKey key) {
         return MAP_BY_KEY.get(key);
+    }
+
+    private static String getEntity(Pathfinder pathfinder) {
+        return EntityData.toString(pathfinder.getEntity());
     }
 
     private final NamespacedKey namespacedKey;
