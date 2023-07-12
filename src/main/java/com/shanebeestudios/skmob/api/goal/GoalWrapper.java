@@ -7,6 +7,7 @@ import ch.njol.util.StringUtils;
 import me.gamercoder215.mobchip.ai.goal.*;
 import me.gamercoder215.mobchip.ai.goal.target.PathfinderNearestAttackableTarget;
 import org.bukkit.Difficulty;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.Nullable;
 
@@ -92,6 +93,18 @@ public abstract class GoalWrapper<P extends Pathfinder> {
             String interval = new Timespan(pathfinder.getInterval()).toString();
             return String.format("RandomStrollGoal[mobType=%s,speedMod=%s,interval='%s']",
                     entity, speed, interval);
+        }
+    };
+
+    public static GoalWrapper<PathfinderRemoveBlock> REMOVE_BLOCK_GOAL = new GoalWrapper<>(PathfinderRemoveBlock.class, "remove_block_goal") {
+        @Override
+        public String toSkriptString(PathfinderRemoveBlock pathfinder) {
+            String entity = EntityData.toString(pathfinder.getEntity());
+            Material block = pathfinder.getBlock();
+            double speed = pathfinder.getSpeedModifier();
+            int vert = pathfinder.getVerticalSearchRange();
+            return String.format("RemoveBlockGoal[mobType=%s,block=%s,speedMod=%s,verticalSearchRange=%s]",
+                    entity, block, speed, vert);
         }
     };
 
