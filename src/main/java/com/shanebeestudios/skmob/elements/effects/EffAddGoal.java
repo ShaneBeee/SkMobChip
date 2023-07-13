@@ -9,7 +9,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import com.shanebeestudios.skmob.util.BrainUtils;
+import com.shanebeestudios.skmob.api.mobchip.BrainUtils;
 import me.gamercoder215.mobchip.ai.EntityAI;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import org.bukkit.event.Event;

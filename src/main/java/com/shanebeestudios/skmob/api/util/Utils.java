@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.util;
+package com.shanebeestudios.skmob.api.util;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.log.ErrorQuality;

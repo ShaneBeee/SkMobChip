@@ -8,7 +8,7 @@ import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.util.Timespan;
-import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
+import com.shanebeestudios.skmob.api.skript.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.target.PathfinderNearestAttackableTarget;
 import org.bukkit.entity.Entity;

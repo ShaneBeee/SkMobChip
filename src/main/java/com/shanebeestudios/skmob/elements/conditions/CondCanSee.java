@@ -8,7 +8,7 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import com.shanebeestudios.skmob.util.BrainUtils;
+import com.shanebeestudios.skmob.api.mobchip.BrainUtils;
 import me.gamercoder215.mobchip.EntityBrain;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;

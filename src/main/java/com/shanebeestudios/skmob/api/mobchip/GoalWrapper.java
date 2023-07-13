@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.api.goal;
+package com.shanebeestudios.skmob.api.mobchip;
 
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.registrations.Classes;

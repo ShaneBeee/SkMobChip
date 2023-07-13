@@ -4,7 +4,7 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
+import com.shanebeestudios.skmob.api.skript.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.PathfinderFloat;
 import org.bukkit.entity.Entity;

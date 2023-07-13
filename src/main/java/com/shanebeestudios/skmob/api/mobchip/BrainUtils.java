@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.util;
+package com.shanebeestudios.skmob.api.mobchip;
 
 import me.gamercoder215.mobchip.EntityBrain;
 import me.gamercoder215.mobchip.ai.EntityAI;

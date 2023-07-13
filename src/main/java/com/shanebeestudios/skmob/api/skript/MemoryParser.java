@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.util.parsers;
+package com.shanebeestudios.skmob.api.skript;
 
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;

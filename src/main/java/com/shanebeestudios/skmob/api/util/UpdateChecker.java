@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.util;
+package com.shanebeestudios.skmob.api.util;
 
 import ch.njol.skript.util.Version;
 import com.google.gson.Gson;

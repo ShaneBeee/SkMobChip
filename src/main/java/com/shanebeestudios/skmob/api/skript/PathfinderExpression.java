@@ -1,4 +1,4 @@
-package com.shanebeestudios.skmob.api.skript.lang;
+package com.shanebeestudios.skmob.api.skript;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;

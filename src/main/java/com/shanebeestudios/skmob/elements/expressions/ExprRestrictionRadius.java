@@ -5,7 +5,7 @@ import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import com.shanebeestudios.skmob.util.BrainUtils;
+import com.shanebeestudios.skmob.api.mobchip.BrainUtils;
 import me.gamercoder215.mobchip.EntityBrain;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

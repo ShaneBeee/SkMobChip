@@ -6,7 +6,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
-import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
+import com.shanebeestudios.skmob.api.skript.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.PathfinderBreed;
 import org.bukkit.entity.Animals;

@@ -9,7 +9,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.util.Timespan;
-import com.shanebeestudios.skmob.api.skript.lang.PathfinderExpression;
+import com.shanebeestudios.skmob.api.skript.PathfinderExpression;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
 import me.gamercoder215.mobchip.ai.goal.PathfinderRandomStroll;
 import org.bukkit.entity.Creature;
