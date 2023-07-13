@@ -10,6 +10,7 @@ import me.gamercoder215.mobchip.ai.goal.target.PathfinderWildTarget;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -170,6 +171,20 @@ public abstract class GoalWrapper<P extends Pathfinder> {
         public String toSkriptString(PathfinderRestrictSun pathfinder) {
             String entity = getEntity(pathfinder);
             return "RestrictSunGoal[mobType=" + entity + "]";
+        }
+    };
+
+    public static GoalWrapper<PathfinderTempt> TEMPT_GOAL = new GoalWrapper<>(PathfinderTempt.class, "tempt_goal") {
+        @Override
+        public String toSkriptString(PathfinderTempt pathfinder) {
+            String entity = getEntity(pathfinder);
+            List<String> materials = new ArrayList<>();
+            for (ItemStack item : pathfinder.getItems()) {
+                materials.add(item.getType().getKey().toString());
+            }
+            String matList = StringUtils.join(materials, ",");
+            double speedModifier = pathfinder.getSpeedModifier();
+            return String.format("TemptGoal[mobType=%s,items=[%s],speedMod=%s]", entity, matList, speedModifier);
         }
     };
 
