@@ -40,14 +40,14 @@ public class ExprEntityBrainGoals extends SimpleExpression<Pathfinder> {
                 "%livingentities/entitybrains%'[s] [:running] [:target] goals");
     }
 
-    private Expression<Entity> entity;
+    private Expression<?> entity;
     private boolean target;
     private boolean running;
 
-    @SuppressWarnings({"NullableProblems", "unchecked"})
+    @SuppressWarnings({"NullableProblems"})
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-        this.entity = (Expression<Entity>) exprs[0];
+        this.entity = exprs[0];
         this.target = parseResult.hasTag("target");
         this.running = parseResult.hasTag("running");
         return true;
