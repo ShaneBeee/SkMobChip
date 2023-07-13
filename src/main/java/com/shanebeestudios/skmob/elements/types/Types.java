@@ -10,6 +10,7 @@ import me.gamercoder215.mobchip.EntityBrain;
 import me.gamercoder215.mobchip.ai.EntityAI;
 import me.gamercoder215.mobchip.ai.controller.EntityController;
 import me.gamercoder215.mobchip.ai.goal.Pathfinder;
+import me.gamercoder215.mobchip.ai.goal.WrappedPathfinder;
 import me.gamercoder215.mobchip.ai.memories.Memory;
 import org.jetbrains.annotations.NotNull;
 
@@ -122,6 +123,42 @@ public class Types {
                     @Override
                     public String toVariableNameString(Pathfinder pathfinder) {
                         return "";
+                    }
+                }));
+
+        Classes.registerClass(new ClassInfo<>(WrappedPathfinder.class, "wrappedgoal")
+                .user("wrapped ?goals?")
+                .name("WrappedGoal")
+                .description("Represents a goal and priority wrapped.")
+                .parser(new Parser<>() {
+                    @SuppressWarnings("NullableProblems")
+                    @Override
+                    public boolean canParse(ParseContext context) {
+                        return false;
+                    }
+
+                    @SuppressWarnings("NullableProblems")
+                    @Override
+                    public String toString(WrappedPathfinder wrappedPathfinder, int flags) {
+                        Pathfinder pathfinder = wrappedPathfinder.getPathfinder();
+                        int priority = wrappedPathfinder.getPriority();
+                        if (pathfinder == null) {
+                            return String.format("WrappedGoal[priority=%s,missingGoal]", priority);
+                        }
+
+                        GoalWrapper<?> goalWrapper = GoalWrapper.getByClass(pathfinder.getClass());
+                        if (goalWrapper == null) {
+                            return String.format("WrappedGoal[priority=%s,unknownGoal=%s]",
+                                    priority, pathfinder.getName());
+                        }
+                        return String.format("WrappedGoal[priority=%s,goal=\"%s\"]",
+                                priority, goalWrapper.getKey().getKey());
+                    }
+
+                    @SuppressWarnings("NullableProblems")
+                    @Override
+                    public String toVariableNameString(WrappedPathfinder wrappedPathfinder) {
+                        return toString(wrappedPathfinder, 0);
                     }
                 }));
     }
